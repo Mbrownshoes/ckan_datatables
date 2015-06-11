@@ -9,37 +9,40 @@
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">  
+<link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">  
+
 <!-- build:css(.tmp) styles/main.css -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-
+<link rel='stylesheet' href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js">
 <!-- {{DOMAIN}}api/3/action/package_search?q=sub_org:"04215a2c-c0b4-4829-a082-bb9467f20e1c"-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
-
+<style>
+body { font-size: 140%; }
+</style>
 
 <script type="text/javascript">
 
 $(document).ready(function() {
-
-
+var test
     $.ajax({
         url: 'http://catalogue.data.gov.bc.ca/api/3/action/package_search?q=sub_org:"04215a2c-c0b4-4829-a082-bb9467f20e1c"&rows=1000',
         success: function(data) {
-
             $('#example').dataTable({
                 data: data.result.results,
                 columns: [{
-                    data: 'title'
-                }, {
-                    data: 'notes'
-                }, {
-                    data: 'name',
-                    render: function(data) {
-                        urlstring = 'http://catalogue.data.gov.bc.ca/dataset/' + data;
-                        hyperstring = "<a href=" + urlstring + ">URL</a>";
+                    data,
+                    render: function(data,type, row) {
+                        urlstring = 'http://catalogue.data.gov.bc.ca/dataset/' + data['name'];
+                        hyperstring = "<a href=" + urlstring + ">"+data['title']+"</a>";
                         return hyperstring;
                     }
+                }, {
+                    data: 'notes'
+                },
+                {
+                   data: "license_title" 
                 }]
             });
         }
@@ -55,48 +58,46 @@ $(document).ready(function() {
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
-
-      <div class="container">
-        <div class="header">
-          <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#">PackageSearch</a></li>
-            <li><a href="#">DataStore</a></li>
-            <li><a href="#">PackageShow</a></li>
-        </ul>
-        <h3 class="text-muted">BCDC API Demo Page</h3>
-    </div>
-
-    <div class="row marketing">
-      <div class="col-lg-6">
-        <h3>Demonstration of BC Data Catalogue API</h3>
-        <p>Powered by CKAN the BC Data Catalogue has a rich API that allows ... </p>
-    </div>
+<div class="container">
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a href="#">PackageSearch</a></li>
+    <li><a href="#">DataStore</a></li>
+    <li><a href="#">PackageShow</a></li>
+</ul>
+<h3 class="text-muted">BCDC API Demo Page</h3>
 </div>
 
 <div class="row marketing">
-  <div class="col-lg-6">
+<div class="col-lg-6">
+    <h3>Demonstration of BC Data Catalogue API</h3>
+    <p>Powered by CKAN the BC Data Catalogue has a rich API that allows ... </p>
+</div>
+</div>
+
+<div class="row marketing">
+<div class="col-lg-6">
     <h4>Mineral Title Branch Records</h4>
     <p>The table below is taken live from the BC Data Catalogue content. </p>
 </div>
 </div>
 
 
-<div class="col-md-6">
-  <table class="table table-striped" id="example">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>URL</th>
-    </tr>
-</thead>
+<div class="col-md-8">
+<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>License</th>
+        </tr>
+    </thead>
 
-<tfoot>
-  <tr>
-    <th>title</th>
-    <th>notes</th>
-    <th>name</th>
-</tr>
+    <tfoot>
+        <tr>
+            <th>title</th>
+            <th>notes</th>
+            <th>license</th>
+        </tr>
 </tfoot>
 
 
