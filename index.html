@@ -27,7 +27,7 @@ body { font-size: 140%; }
 $(document).ready(function() {
 var test
     $.ajax({
-        url: 'http://catalogue.data.gov.bc.ca/api/3/action/package_search?q=sub_org:"04215a2c-c0b4-4829-a082-bb9467f20e1c"&rows=1000',
+        url: 'http://catalogue.data.gov.bc.ca/api/3/action/package_search?q=sub_org:"e51a8106-11c7-4436-a967-7cee18bfb159"&rows=1000',
         success: function(data) {
             $('#example').dataTable({
                 data: data.result.results,
@@ -69,15 +69,15 @@ var test
 </div>
 
 <div class="row marketing">
-<div class="col-lg-6">
+<div class="col-lg-8">
     <h3>Demonstration of BC Data Catalogue API</h3>
     <p>Powered by CKAN the BC Data Catalogue has a rich API that allows ... </p>
 </div>
 </div>
 
 <div class="row marketing">
-<div class="col-lg-6">
-    <h4>Mineral Title Branch Records</h4>
+<div class="col-lg-8">
+    <h4>GeoBC Branch Records</h4>
     <p>The table below is taken live from the BC Data Catalogue content. </p>
 </div>
 </div>
