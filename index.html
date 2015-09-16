@@ -21,34 +21,72 @@
 <style>
 body { font-size: 140%; }
 </style>
-
+<!-- <input type='button' value='request' id='ajaxButton' /> -->
 <script type="text/javascript">
+// var localCache = {
+//     data: {},
+//     remove: function (url) {
+//         delete localCache.data[url];
+//     },
+//     exist: function (url) {
+//         return localCache.data.hasOwnProperty(url) && localCache.data[url] !== null;
+//     },
+//     get: function (url) {
+//         console.log('Getting in cache for url' + url);
+//         return localCache.data[url];
+//     },
+//     set: function (url, cachedData, callback) {
+//         localCache.remove(url);
+//         localCache.data[url] = cachedData;
+//         if ($.isFunction(callback)) callback(cachedData);
+//     }
+// };
 
 $(document).ready(function() {
-var test
-    $.ajax({
-        url: 'http://catalogue.data.gov.bc.ca/api/3/action/package_search?q=sub_org:"e51a8106-11c7-4436-a967-7cee18bfb159"&rows=1000',
-        success: function(data) {
-            $('#example').dataTable({
-                data: data.result.results,
-                columns: [{
-                    data,
-                    render: function(data,type, row) {
-                        urlstring = 'http://catalogue.data.gov.bc.ca/dataset/' + data['name'];
-                        hyperstring = "<a href=" + urlstring + ">"+data['title']+"</a>";
-                        return hyperstring;
-                    }
-                }, {
-                    data: 'notes'
-                },
-                {
-                   data: "license_title" 
-                }]
-            });
-        }
-    });
+    var url = 'http://catalogue.data.gov.bc.ca/api/3/action/package_search?q=sub_org:"e51a8106-11c7-4436-a967-7cee18bfb159"&rows=1000';
+    // $('#ajaxButton').click(function (e) {
+        $.ajax({
+            url: url,
+
+            success: function(data) {
+                $('#example').dataTable({
+                    data: data.result.results,
+                    columns: [{
+                        data,
+                        render: function(data,type, row) {
+                            urlstring = 'http://catalogue.data.gov.bc.ca/dataset/' + data['name'];
+                            hyperstring = "<a href=" + urlstring + ">"+data['title']+"</a>";
+                            return hyperstring;
+                        }
+                    }, {
+                        data: 'notes'
+                    },
+                    {
+                     data: "license_title" 
+                 }]
+             });
+            }
+        // ,
+        //     cache: true,
+        //     beforeSend: function () {
+        //         if (localCache.exist(url)) {
+        //             doSomething(localCache.get(url));
+        //             return false;
+        //         }
+        //         return true;
+        //     },
+        //     complete: function (jqXHR, textStatus) {
+        //         localCache.set(url, jqXHR, doSomething);
+        //     }
+            // });
+
+
+});
 
 })
+// function doSomething(data) {
+//     console.log(data);
+// }
 </script>
 
 
@@ -58,50 +96,50 @@ var test
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
-<div class="container">
-<div class="header">
-  <ul class="nav nav-pills pull-right">
-    <li class="active"><a href="#">PackageSearch</a></li>
-    <li><a href="#">DataStore</a></li>
-    <li><a href="#">PackageShow</a></li>
-</ul>
-<h3 class="text-muted">BCDC API Demo Page</h3>
-</div>
+      <div class="container">
+        <div class="header">
+          <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#">PackageSearch</a></li>
+            <li><a href="#">DataStore</a></li>
+            <li><a href="#">PackageShow</a></li>
+        </ul>
+        <h3 class="text-muted">BCDC API Demo Page</h3>
+    </div>
 
-<div class="row marketing">
-<div class="col-lg-8">
-    <h3>Demonstration of BC Data Catalogue API</h3>
-    <p>Powered by CKAN the BC Data Catalogue has a rich API that allows ... </p>
-</div>
-</div>
+    <div class="row marketing">
+        <div class="col-lg-8">
+            <h3>Demonstration of BC Data Catalogue API</h3>
+            <p>Powered by CKAN the BC Data Catalogue has a rich API that allows ... </p>
+        </div>
+    </div>
 
-<div class="row marketing">
-<div class="col-lg-8">
-    <h4>GeoBC Branch Records</h4>
-    <p>The table below is taken live from the BC Data Catalogue content. </p>
-</div>
-</div>
-
-
-<div class="col-md-8">
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>License</th>
-        </tr>
-    </thead>
-
-    <tfoot>
-        <tr>
-            <th>title</th>
-            <th>notes</th>
-            <th>license</th>
-        </tr>
-</tfoot>
+    <div class="row marketing">
+        <div class="col-lg-8">
+            <h4>GeoBC Branch Records</h4>
+            <p>The table below is taken live from the BC Data Catalogue content. </p>
+        </div>
+    </div>
 
 
-</tbody>
+    <div class="col-md-8">
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">    <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>License</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <th>title</th>
+                <th>notes</th>
+                <th>license</th>
+            </tr>
+        </tfoot>
+
+
+    </tbody>
 </table>
 </div>
 
