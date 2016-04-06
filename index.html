@@ -80,7 +80,7 @@ body { font-size: 140%; }
                     
 
             // https://api.bcdevexchange.org/bcdc/3/action/package_search?q=metadata_created:['+currentDate+'%20TO%20*];
-            var url = 'https://uat-api.bcdevexchange.org/bcdc/action/package_search?q=&rows=1000';
+            var url = '//catalogue.data.gov.bc.ca/api/3/action/package_search?q=&rows=1000';
             $.ajax({
                 url: url,
                 success: function(data) {
@@ -147,7 +147,7 @@ body { font-size: 140%; }
     <div class="row marketing">
         <div class="col-lg-8">
             <h3>BC Data Catalogue Content</h3>
-            <p>Published Public Records</p>
+            <p>Published Public Records -- limited to the past 1000 published records</p>
         </div>
     </div>
 
